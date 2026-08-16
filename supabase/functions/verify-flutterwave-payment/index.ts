@@ -102,8 +102,16 @@ Deno.serve(async (req) => {
     return json({ success: false, reason: 'tx_ref_order_mismatch' }, 400)
   }
 
-  const expectedNgnTotal = calculateServerOrderTotal(order)
-  if (expectedNgnTotal === null) {
+  // Admin-created test orders (see AdminTestCheckout.jsx) don't correspond
+  // to any real catalog combination — they exist purely to run a small real
+  // transaction through this exact verification path when checking live
+  // Flutterwave keys, so there's nothing in the real catalog to recompute
+  // against. Trusting the order's own total_amount here is safe specifically
+  // because is_test_order can only ever be set by an authenticated admin
+  // (see migration 010 / the direct `authenticated` insert policy on
+  // orders), never by a customer-facing write path.
+  const expectedNgnTotal = order.is_test_order ? order.total_amount : calculateServerOrderTotal(order)
+  if (expectedNgnTotal === null || expectedNgnTotal === undefined) {
     return json({ success: false, reason: 'order_has_unrecognized_selection' }, 400)
   }
 

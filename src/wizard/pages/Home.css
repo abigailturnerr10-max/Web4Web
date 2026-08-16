@@ -188,7 +188,11 @@
     grid-template-columns: 1fr;
   }
   .home__preview-col {
+    /* Was `order: -1`, pushing the preview above Step 1 — before a visitor
+       has answered anything, it just showed the empty "answer the first
+       question…" placeholder. Removing the override lets it fall into its
+       natural DOM position: after .home__questions, i.e. below Step 1, 2,
+       and 3, so it appears once there's something real to preview. */
     position: static;
-    order: -1;
   }
 }

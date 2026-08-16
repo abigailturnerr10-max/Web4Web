@@ -1,10 +1,48 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FlutterWaveButton } from 'flutterwave-react-v3'
 import { formatPrice, ngnToUsd } from '../config/catalog.js'
 import { supabase, supabaseReady } from '../../lib/supabaseClient.js'
 import './PaymentPanel.css'
 
 const FLW_PUBLIC_KEY = import.meta.env.VITE_FLW_PUBLIC_KEY
+
+// flutterwave-react-v3's button doesn't load its checkout script
+// (checkout.flutterwave.com/v3.js) until the FIRST click — and if that
+// click lands before the script finishes loading, its own internal
+// `isFWScriptLoading` guard makes the click a silent no-op with zero visual
+// feedback (confirmed by reading the library's source directly). A visitor
+// tapping Pay before the script is ready sees nothing happen; tapping again
+// while it's still loading does nothing a second time too — exactly the
+// "first trial the pay button didn't click" report this fixes. Loading the
+// script proactively the moment this panel mounts, well before Pay is ever
+// tapped, means `window.FlutterwaveCheckout` is already defined by the time
+// a real visitor reaches for the button in the common case; the "Preparing
+// checkout…" state below covers the rare case where it's still in flight.
+const FLW_SCRIPT_SRC = 'https://checkout.flutterwave.com/v3.js'
+
+function useFlutterwaveScriptReady() {
+  const [ready, setReady] = useState(() => Boolean(window.FlutterwaveCheckout))
+
+  useEffect(() => {
+    if (ready) return
+    if (window.FlutterwaveCheckout) {
+      setReady(true)
+      return
+    }
+    let existing = document.querySelector(`script[src="${FLW_SCRIPT_SRC}"]`)
+    const handleLoad = () => setReady(true)
+    if (!existing) {
+      existing = document.createElement('script')
+      existing.src = FLW_SCRIPT_SRC
+      existing.async = true
+      document.body.appendChild(existing)
+    }
+    existing.addEventListener('load', handleLoad)
+    return () => existing.removeEventListener('load', handleLoad)
+  }, [ready])
+
+  return ready
+}
 
 // Web4Web's own checkout goes through Flutterwave only, regardless of
 // visitor region/currency — Flutterwave supports international card
@@ -19,6 +57,7 @@ export default function PaymentPanel({ currency, totalNgn, contact, orderId, onP
 function FlutterwavePay({ currency, totalNgn, contact, orderId, onPaid }) {
   const [verifying, setVerifying] = useState(false)
   const [verifyError, setVerifyError] = useState(null)
+  const scriptReady = useFlutterwaveScriptReady()
   const ready = Boolean(FLW_PUBLIC_KEY)
   const isUsd = currency === 'USD'
   const amount = isUsd ? Number(ngnToUsd(totalNgn).toFixed(2)) : totalNgn
@@ -108,12 +147,16 @@ function FlutterwavePay({ currency, totalNgn, contact, orderId, onPaid }) {
         <button type="button" className="btn btn--primary" disabled>
           Confirming payment…
         </button>
-      ) : (
+      ) : scriptReady ? (
         <FlutterWaveButton
           {...config}
           text={`Pay ${displayPrice}`}
           className="btn btn--primary payment-panel__flw-btn"
         />
+      ) : (
+        <button type="button" className="btn btn--primary" disabled>
+          Preparing checkout…
+        </button>
       )}
       {verifyError && <p className="payment-panel__error">{verifyError}</p>}
     </div>
