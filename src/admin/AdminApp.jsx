@@ -1,0 +1,29 @@
+import { Routes, Route } from 'react-router-dom'
+import useAdminSession from './useAdminSession.js'
+import AdminLogin from './AdminLogin.jsx'
+import AdminOrdersList from './AdminOrdersList.jsx'
+import AdminOrderDetail from './AdminOrderDetail.jsx'
+import { supabaseAdmin as supabase } from '../lib/supabaseAdminClient.js'
+import './admin.css'
+
+export default function AdminApp() {
+  const { session, loading } = useAdminSession()
+
+  if (loading) return <p className="admin-loading">Loading…</p>
+  if (!session) return <AdminLogin />
+
+  return (
+    <div className="admin-shell">
+      <header className="admin-topbar">
+        <span className="admin-topbar__brand">Web4Web Admin</span>
+        <button type="button" className="btn btn--ghost" onClick={() => supabase.auth.signOut()}>
+          Sign out
+        </button>
+      </header>
+      <Routes>
+        <Route path="/" element={<AdminOrdersList />} />
+        <Route path="/orders/:id" element={<AdminOrderDetail />} />
+      </Routes>
+    </div>
+  )
+}

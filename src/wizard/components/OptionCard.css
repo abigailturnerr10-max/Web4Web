@@ -1,0 +1,126 @@
+.option-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+}
+
+.option-card--disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.option-card__badge {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  background: linear-gradient(135deg, var(--amber), var(--orange));
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.option-card__reason {
+  margin-top: 8px;
+  font-size: 0.76rem;
+  font-style: italic;
+  color: var(--orange-600, #b8450c);
+  line-height: 1.4;
+}
+
+.option-card__disabled-note {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--graphite-soft);
+}
+
+.option-card:hover {
+  border-color: var(--navy);
+}
+
+.option-card--selected {
+  border-color: var(--orange);
+  background: rgba(225, 89, 44, 0.06);
+  box-shadow: 0 0 0 1px var(--orange);
+}
+
+.option-card__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-card__mark {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-card__mark--square {
+  border-radius: 4px;
+  font-size: 0.6rem;
+  color: var(--white);
+}
+
+.option-card--selected .option-card__mark {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+.option-card--selected .option-card__mark--square {
+  background: var(--orange);
+}
+
+.option-card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.92rem;
+  flex: 1;
+}
+
+.option-card__price {
+  color: var(--graphite-soft);
+  white-space: nowrap;
+}
+
+.option-card--selected .option-card__price {
+  color: var(--orange);
+}
+
+.option-card__desc {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.option-card__swatches {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.option-card__swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}

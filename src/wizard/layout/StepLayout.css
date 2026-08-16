@@ -1,0 +1,124 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 24px;
+  background: rgba(246, 242, 233, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.topbar__mark {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--navy);
+  background: var(--paper-raised);
+}
+
+.topbar__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.step-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.step-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.step-nav__dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--graphite-soft);
+  background: var(--paper-raised);
+}
+
+.step-nav__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+  white-space: nowrap;
+}
+
+.step-nav__item--active .step-nav__dot {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: var(--white);
+}
+
+.step-nav__item--active .step-nav__label {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.step-nav__item--done .step-nav__dot {
+  border-color: var(--amber);
+  background: var(--amber-soft);
+  color: var(--navy);
+}
+
+.topbar-main {
+  flex: 1;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.topbar-main--wide {
+  max-width: 1240px;
+}
+
+@media (max-width: 720px) {
+  .step-nav__label {
+    display: none;
+  }
+  .topbar {
+    padding: 14px 16px;
+  }
+  .topbar-main {
+    padding: 28px 16px 64px;
+  }
+}

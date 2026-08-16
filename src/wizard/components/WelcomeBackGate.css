@@ -1,0 +1,44 @@
+.welcome-back {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.welcome-back__card {
+  max-width: 420px;
+  width: 100%;
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
+  padding: 32px;
+  text-align: center;
+}
+
+.welcome-back__title {
+  font-size: 1.6rem;
+  margin: 10px 0 8px;
+}
+
+.welcome-back__desc {
+  font-size: 0.94rem;
+  margin-bottom: 24px;
+}
+
+.welcome-back__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.welcome-back__actions .btn {
+  justify-content: center;
+  width: 100%;
+}

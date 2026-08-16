@@ -1,0 +1,46 @@
+.timeline-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.timeline-option {
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.timeline-option--selected {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1.5px var(--orange);
+}
+
+.timeline-option__days {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 1.15rem;
+  margin: 10px 0 6px;
+}
+
+.timeline-option__price {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--graphite-soft);
+}
+
+.timeline-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-strong);
+}
+
+@media (max-width: 600px) {
+  .timeline-options {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,114 @@
+.color-wheel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.color-wheel__hue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-wheel__slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 14px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    hsl(0, 80%, 55%),
+    hsl(60, 80%, 55%),
+    hsl(120, 80%, 55%),
+    hsl(180, 80%, 55%),
+    hsl(240, 80%, 55%),
+    hsl(300, 80%, 55%),
+    hsl(360, 80%, 55%)
+  );
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+}
+
+.color-wheel__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper-raised);
+  border: 3px solid var(--navy);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(22, 33, 62, 0.3);
+}
+
+.color-wheel__slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper-raised);
+  border: 3px solid var(--navy);
+  cursor: pointer;
+}
+
+.color-wheel__hue-value {
+  width: 40px;
+  text-align: right;
+}
+
+.color-wheel__palettes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.color-wheel__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.color-wheel__option--selected {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1px var(--orange);
+}
+
+.color-wheel__swatches {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 44px;
+  height: 32px;
+}
+
+.color-wheel__swatches span {
+  flex: 1;
+}
+
+.color-wheel__option-name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--navy);
+}
+
+.color-wheel__option-desc {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--graphite-soft);
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .color-wheel__palettes {
+    grid-template-columns: 1fr;
+  }
+}

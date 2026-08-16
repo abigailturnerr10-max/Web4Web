@@ -1,0 +1,63 @@
+.cf-priority {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.cf-priority--required { background: rgba(225, 89, 44, 0.12); color: var(--orange-600, #b8450c); }
+.cf-priority--recommended { background: rgba(242, 169, 59, 0.16); color: #8a6416; }
+.cf-priority--optional { background: var(--paper-sunken); color: var(--graphite-soft); }
+
+.cf-save-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--graphite-soft);
+}
+.cf-save-indicator--saving { color: var(--orange); }
+
+.cf-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.cf-field__label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+.cf-field__note { font-size: 0.76rem; color: var(--graphite-soft); margin: -2px 0 0; font-weight: 400; }
+
+.cf-fallback {
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--paper-sunken);
+}
+.cf-fallback__prompt { margin: 0 0 8px; font-size: 0.78rem; color: var(--graphite-soft); }
+.cf-fallback__options { display: flex; gap: 8px; flex-wrap: wrap; }
+.cf-fallback__btn {
+  font-size: 0.76rem;
+  padding: 7px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  cursor: pointer;
+}
+.cf-fallback__btn--active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.cf-fallback__clear { margin-top: 8px; font-size: 0.72rem; color: var(--orange); background: none; border: none; text-decoration: underline; cursor: pointer; padding: 0; }
+
+.cf-repeatable { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.cf-repeatable__card { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.cf-repeatable__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--paper-raised);
+  border: none;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-align: left;
+}
+.cf-repeatable__chevron { color: var(--graphite-soft); }
+.cf-repeatable__body { padding: 14px; border-top: 1px solid var(--line); }
+.cf-repeatable__remove { margin-top: 6px; font-size: 0.74rem; color: var(--orange); background: none; border: none; text-decoration: underline; cursor: pointer; padding: 0; }
+.cf-repeatable__add { align-self: flex-start; }

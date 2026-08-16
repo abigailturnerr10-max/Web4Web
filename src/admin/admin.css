@@ -1,0 +1,173 @@
+/* Internal tool — functional, not matched to the site's full design system,
+   but built for daily use: scannable status, copyable fields, fast downloads. */
+
+.admin-loading { padding: 40px; text-align: center; color: var(--graphite-soft); }
+
+.admin-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--paper); }
+.admin-login__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+  padding: 28px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+.admin-login__card h1 { margin: 0 0 8px; font-size: 1.1rem; color: var(--navy); }
+.admin-login__error { color: var(--orange-600, #b8450c); font-size: 0.8rem; margin: 0; }
+
+.admin-shell { min-height: 100vh; background: var(--paper); }
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: var(--navy);
+  color: #fff;
+}
+.admin-topbar__brand { font-family: var(--font-mono); font-weight: 700; }
+
+.admin-page { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+
+.admin-page__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; }
+.admin-page__header h1 { margin: 0; }
+
+.admin-back-link { font-size: 0.8rem; color: var(--orange); text-decoration: underline; }
+
+.admin-order-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  font-size: 1.3rem;
+  color: var(--navy);
+}
+.admin-order-title .mono-label { font-size: 0.8rem; color: var(--graphite-soft); font-weight: 400; }
+
+.admin-header-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 4px; }
+
+/* ---- cards / sections ---------------------------------------------------- */
+
+.admin-card {
+  margin-top: 20px;
+  padding: 22px 24px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+.admin-card__title {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.02rem;
+  color: var(--navy);
+}
+
+.admin-subsection { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); }
+.admin-subsection:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.admin-subsection h3 { margin: 0 0 10px; font-size: 0.86rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.02em; }
+
+.admin-empty { color: var(--graphite-soft); font-size: 0.86rem; }
+.admin-submitted-line { font-size: 0.82rem; color: var(--graphite-soft); margin: 0 0 16px; }
+
+/* ---- tables --------------------------------------------------------------- */
+
+.admin-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.84rem; }
+.admin-table th, .admin-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.admin-table th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; color: var(--graphite-soft); letter-spacing: 0.03em; }
+.admin-table__total-row td { border-bottom: none; padding-top: 12px; font-size: 0.92rem; }
+.admin-table--rows tbody tr:hover { background: var(--paper-sunken); }
+.admin-table__row-link { color: var(--navy); font-weight: 600; text-decoration: none; }
+.admin-table__row-link:hover { text-decoration: underline; }
+
+/* ---- status badges ---------------------------------------------------------
+   Used for payment status, project status, secret-key status, content
+   submitted state — anywhere state needs to be scannable at a glance rather
+   than read as plain text. */
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--paper-sunken);
+  color: var(--graphite-soft);
+  white-space: nowrap;
+}
+.admin-badge--success { background: rgba(90, 160, 90, 0.15); color: #2f6b2f; }
+.admin-badge--warning { background: rgba(242, 169, 59, 0.18); color: #8a6416; }
+.admin-badge--info { background: rgba(70, 120, 200, 0.14); color: #2d5a9e; }
+.admin-badge--neutral { background: var(--paper-sunken); color: var(--graphite-soft); }
+.admin-badge--danger { background: rgba(225, 89, 44, 0.12); color: var(--orange-600, #b8450c); }
+
+.admin-status-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.86rem; }
+.admin-status-row__label { color: var(--graphite-soft); min-width: 70px; }
+
+.admin-status-advance { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+.admin-status-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line-strong); }
+.admin-status-links__field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 220px; }
+.admin-status-email-state { margin-top: 10px; }
+.admin-status-error { margin-top: 10px; color: var(--orange); font-size: 0.82rem; }
+
+/* ---- description lists (label/value pairs) --------------------------------- */
+
+.admin-dl { display: grid; grid-template-columns: 190px 1fr; gap: 10px 12px; font-size: 0.86rem; margin-top: 4px; align-items: start; }
+.admin-dl dt { color: var(--graphite-soft); padding-top: 2px; }
+.admin-dl dd { margin: 0; display: flex; align-items: flex-start; gap: 6px; }
+.admin-dl dd > span:first-child { flex: 1; word-break: break-word; }
+
+/* ---- copy-to-clipboard ------------------------------------------------------ */
+
+.admin-copy-btn {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--paper-raised);
+  color: var(--graphite-soft);
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.admin-copy-btn:hover { background: var(--paper-sunken); color: var(--navy); }
+.admin-copy-btn--copied { color: #2f6b2f; border-color: #5aa05a; background: rgba(90, 160, 90, 0.1); }
+
+/* ---- flags (outstanding / upsell) ------------------------------------------ */
+
+.admin-flags { margin-top: 4px; margin-bottom: 20px; padding: 14px 16px; background: var(--paper-sunken); border-radius: var(--radius-md); font-size: 0.8rem; }
+.admin-flags h3 { margin: 0 0 6px; font-size: 0.78rem; text-transform: none; letter-spacing: normal; }
+.admin-flags ul { margin: 4px 0 0; padding-left: 18px; }
+.admin-flags__upsell { margin-top: 10px; }
+.admin-flags__upsell h3 { color: var(--orange-600, #b8450c); }
+
+/* ---- files / images --------------------------------------------------------- */
+
+.admin-image-row { margin-top: 16px; }
+.admin-image-loading { font-size: 0.72rem; color: var(--graphite-soft); }
+.admin-image { display: block; max-width: 160px; max-height: 160px; border-radius: var(--radius-md); object-fit: cover; }
+.admin-image-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+
+.admin-file { display: flex; flex-direction: column; gap: 6px; font-size: 0.72rem; color: var(--graphite-soft); }
+.admin-file__caption { max-width: 160px; }
+.admin-file__download {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  padding: 4px 9px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  color: var(--navy);
+  cursor: pointer;
+}
+.admin-file__download:hover { background: var(--paper-sunken); }

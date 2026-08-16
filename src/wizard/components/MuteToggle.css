@@ -1,0 +1,47 @@
+.mute-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+}
+
+.mute-toggle:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.mute-toggle svg {
+  width: 19px;
+  height: 19px;
+}
+
+.mute-toggle--active {
+  border-color: var(--orange);
+  color: var(--orange);
+  animation: mute-toggle-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mute-toggle-pulse {
+  0%, 100% { box-shadow: var(--shadow-card), 0 0 0 0 rgba(225, 89, 44, 0.35); }
+  50% { box-shadow: var(--shadow-card), 0 0 0 6px rgba(225, 89, 44, 0); }
+}
+
+@media (max-width: 480px) {
+  .mute-toggle {
+    right: 14px;
+    bottom: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}

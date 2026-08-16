@@ -1,0 +1,14 @@
+-- RETIRED — do not run.
+--
+-- The anon UPDATE policy originally proposed here ("anon can mark content
+-- submitted", using (project_status is null)) was a real vulnerability: it
+-- matches on the row's own state, not on the caller having proven they know
+-- that specific order's id. PostgREST applies whatever filter a request
+-- supplies, so anyone with the anon key could have flipped an arbitrary
+-- stranger's order via `PATCH /orders?project_status=is.null`, not just the
+-- one order they were given a link to.
+--
+-- Replaced by the mark-content-submitted Edge Function, which updates by
+-- explicit order id via the service role key — no anon RLS grant needed at
+-- all. Nothing to run for this file; it's kept only as a record of why the
+-- original approach was rejected.

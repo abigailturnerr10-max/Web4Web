@@ -1,0 +1,35 @@
+.home-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.home-intro__text {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.3rem, 3.4vw, 2.1rem);
+  color: var(--navy);
+  text-align: center;
+  max-width: 26ch;
+}
+
+.home-intro__caret {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 3px;
+  background: var(--orange);
+  vertical-align: text-bottom;
+  animation: home-intro-caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes home-intro-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}

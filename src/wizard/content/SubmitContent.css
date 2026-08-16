@@ -1,0 +1,97 @@
+.cf-shell {
+  min-height: 100vh;
+  background: var(--paper);
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.cf-shell__inner {
+  width: 100%;
+  max-width: 720px;
+}
+
+.cf-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.cf-header__title { margin: 0; font-size: 1.15rem; color: var(--navy); }
+.cf-header__sub { margin: 2px 0 0; font-size: 0.8rem; color: var(--graphite-soft); }
+
+.cf-progress-track { height: 6px; border-radius: 4px; background: var(--paper-sunken); overflow: hidden; margin-bottom: 20px; }
+.cf-progress-fill { height: 100%; background: linear-gradient(90deg, var(--amber), var(--orange)); transition: width 0.3s ease; }
+
+.cf-step-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+.cf-step-nav__btn {
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  color: var(--graphite-soft);
+  cursor: pointer;
+}
+.cf-step-nav__btn--active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+.cf-step-body { background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px; }
+
+.cf-step-actions { display: flex; justify-content: space-between; }
+
+.cf-hint { font-size: 0.76rem; color: var(--graphite-soft); margin: 0 0 10px; }
+.cf-error { font-size: 0.78rem; color: var(--orange-600, #b8450c); margin-top: 8px; }
+
+.cf-upload {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: var(--graphite-soft);
+}
+
+.cf-checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; margin-top: 4px; }
+
+.cf-domain-confirm { padding: 14px; background: var(--paper-sunken); border-radius: var(--radius-md); }
+.cf-domain-confirm__value { font-family: var(--font-mono); font-size: 1rem; color: var(--navy); margin: 4px 0; }
+
+.cf-secret-stored { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; color: var(--navy); }
+.cf-secret-stored__replace { background: none; border: none; text-decoration: underline; color: var(--orange); cursor: pointer; font-size: 0.76rem; }
+
+.cf-key-guide { margin-bottom: 16px; padding: 14px 16px; background: var(--paper-sunken); border-radius: var(--radius-md); }
+.cf-key-guide__title { margin: 0 0 8px; font-size: 0.84rem; color: var(--navy); }
+.cf-key-guide__steps { margin: 0; padding-left: 18px; font-size: 0.78rem; color: var(--graphite-soft); }
+.cf-key-guide__steps li { margin-bottom: 6px; }
+
+.cf-secret-reassurance {
+  font-size: 0.76rem;
+  color: var(--graphite-soft);
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--orange);
+  background: rgba(225, 89, 44, 0.05);
+}
+
+.cf-checklist { margin-bottom: 18px; padding: 14px 16px; border-radius: var(--radius-md); }
+.cf-checklist h4 { margin: 0 0 8px; font-size: 0.85rem; }
+.cf-checklist ul { margin: 0; padding-left: 18px; font-size: 0.8rem; }
+.cf-checklist li { margin-bottom: 4px; }
+.cf-checklist--missing { background: rgba(225, 89, 44, 0.07); border: 1px solid var(--orange); }
+.cf-checklist--other { background: var(--paper-sunken); }
+.cf-checklist--complete { background: rgba(90, 160, 90, 0.08); border: 1px solid #5aa05a; }
+.cf-checklist__step, .cf-checklist__priority { color: var(--graphite-soft); font-size: 0.72rem; }
+
+.cf-submit-btn { width: 100%; justify-content: center; }
+
+.cf-status-view { text-align: center; padding: 20px; }
+.cf-status-view__thanks {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: rgba(90, 160, 90, 0.1);
+  border: 1px solid #5aa05a;
+  font-size: 0.86rem;
+  color: var(--navy);
+}
+.cf-status-view__thanks p { margin: 0; }
+.cf-status-view__title { margin: 0 0 20px; color: var(--navy); }
+.cf-status-view__steps { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; max-width: 260px; margin: 0 auto 20px; }
+.cf-status-view__step { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; }

@@ -1,0 +1,51 @@
+.payment-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-panel--placeholder {
+  border: 1.5px dashed var(--orange);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  background: rgba(225, 89, 44, 0.05);
+}
+
+.payment-panel__badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.payment-panel--placeholder p {
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+}
+
+.payment-panel--placeholder code {
+  background: var(--paper-sunken);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+}
+
+.payment-panel__flw-btn {
+  width: 100%;
+  justify-content: center;
+  border: none;
+}
+
+.payment-panel__error {
+  font-size: 0.8rem;
+  color: var(--orange-600, #b8450c);
+  background: rgba(225, 89, 44, 0.08);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin: 0;
+}
