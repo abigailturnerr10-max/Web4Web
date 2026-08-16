@@ -4,6 +4,10 @@
  * Kept separate from PreviewContent.jsx so the components stay readable.
  */
 
+// Generic fallback — shown before a visitor has picked a site type at all
+// (Home's Step 1 unanswered, or the "About" tab). Once a type is picked,
+// *_BY_TYPE below takes over so the demo reads as that kind of site rather
+// than always describing Web4Web itself.
 export const HERO_COPY = {
   headline: 'Your website, your way — built by us, configured by you.',
   subheadline: 'Pick a template, style it live, and launch on your own domain — no code, no guesswork on price.',
@@ -22,6 +26,74 @@ export const HOW_IT_WORKS = [
   { title: 'Review your price', desc: 'Every add-on is itemized — nothing hidden at checkout.' },
   { title: 'We build & you launch', desc: 'We finish the site, you go live on your domain.' },
 ]
+
+/**
+ * Once a siteType is picked, the demo should feel like that *kind* of site —
+ * a Store, a Portfolio, a Business — not a fixed description of Web4Web
+ * itself. Deliberately generic/genre-level (demo product names, demo
+ * project titles, demo service names) rather than modeled on any specific
+ * real brand's actual copy or layout.
+ */
+export const HERO_COPY_BY_TYPE = {
+  store: {
+    headline: 'Everything you need, in one place.',
+    subheadline: 'Browse the full collection — new arrivals added weekly, shipped fast.',
+    cta: 'Shop Now →',
+  },
+  portfolio: {
+    headline: 'Selected work, 2021–2026.',
+    subheadline: 'A collection of projects across branding, product, and digital design.',
+    cta: 'View My Work →',
+  },
+  business: {
+    headline: 'Solutions built around your goals.',
+    subheadline: "We partner with teams to plan, deliver, and support work that lasts.",
+    cta: 'Book a Consultation →',
+  },
+}
+
+export const WHAT_WE_DO_BY_TYPE = {
+  store: [
+    { title: 'Handwoven Tote', desc: '₦14,500 — natural fiber, lined interior.' },
+    { title: 'Ceramic Mug Set', desc: '₦9,000 — set of two, matte glaze.' },
+    { title: 'Desk Lamp', desc: '₦22,000 — warm LED, adjustable arm.' },
+  ],
+  portfolio: [
+    { title: 'Riverside Rebrand', desc: 'Identity system for a hospitality group.' },
+    { title: 'Alma App', desc: 'Product design for a wellness startup.' },
+    { title: 'Northfield Studio', desc: 'Photography for an architecture practice.' },
+  ],
+  business: [
+    { title: 'Strategy Consulting', desc: 'One-on-one sessions to plan your next move.' },
+    { title: 'Ongoing Support', desc: 'A dedicated line for questions after delivery.' },
+    { title: 'Team Training', desc: 'Get your whole team up to speed, fast.' },
+  ],
+}
+
+/** "Browse → Cart → Checkout" etc. — reframes the generic 4-step
+ * "how it works" around how a VISITOR moves through that kind of site, not
+ * around Web4Web's own build process (that context doesn't apply once the
+ * demo is standing in as somebody's Store/Portfolio/Business). */
+export const HOW_IT_WORKS_BY_TYPE = {
+  store: [
+    { title: 'Browse', desc: 'Explore the full catalog by category or search.' },
+    { title: 'Add to Cart', desc: 'Pick sizes, colors, or quantities as you go.' },
+    { title: 'Checkout', desc: 'Secure payment, with delivery or pickup options.' },
+    { title: 'Track & Enjoy', desc: 'Order updates land straight in your inbox.' },
+  ],
+  portfolio: [
+    { title: 'Browse the Work', desc: 'Filter by category to see relevant projects.' },
+    { title: 'Read the Story', desc: 'Every project includes process and outcome.' },
+    { title: 'Get in Touch', desc: 'Send a brief through the contact form.' },
+    { title: "We'll Reply", desc: 'Usually within a business day, with next steps.' },
+  ],
+  business: [
+    { title: 'Consultation', desc: 'A short call to understand what you need.' },
+    { title: 'Proposal', desc: 'A clear scope and price, no surprises later.' },
+    { title: 'Delivery', desc: 'Work happens on an agreed, visible timeline.' },
+    { title: 'Ongoing Support', desc: "We're still reachable after the work ships." },
+  ],
+}
 
 export const WHY_TIERS = {
   heading: 'Why three tiers?',

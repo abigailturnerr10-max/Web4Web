@@ -81,6 +81,12 @@ export default function Configurator() {
   const [premiumExpanded, setPremiumExpanded] = useState(false)
   const [showCustomPalette, setShowCustomPalette] = useState(false)
   const [showBrandColors, setShowBrandColors] = useState(false)
+  // Mobile-only — desktop keeps the preview visible via the sticky side
+  // column (CSS-driven, no JS involved there). Below the 900px breakpoint
+  // that same column becomes a fixed slide-in drawer instead, gated by this
+  // flag; the CSS for the drawer transform/backdrop only exists inside that
+  // breakpoint's media query, so this state has zero effect on desktop.
+  const [mobilePreviewOpen, setMobilePreviewOpen] = useState(false)
   const [moodFilter, setMoodFilter] = useState('professional')
   const [openSection, setOpenSection] = useState(null)
   const [effectsTab, setEffectsTab] = useState(EFFECT_CATEGORIES[0].id)
@@ -320,8 +326,29 @@ export default function Configurator() {
         </div>
       </div>
 
+      {mobilePreviewOpen && (
+        <div className="configurator-preview-backdrop" onClick={() => setMobilePreviewOpen(false)} aria-hidden="true" />
+      )}
+
+      <button
+        type="button"
+        className="configurator-preview-tab"
+        onClick={() => setMobilePreviewOpen(true)}
+        aria-label="See live preview"
+      >
+        👁 Preview
+      </button>
+
       <div className="configurator">
-        <div className="configurator__preview-col">
+        <div className={'configurator__preview-col' + (mobilePreviewOpen ? ' configurator__preview-col--open' : '')}>
+          <button
+            type="button"
+            className="configurator-preview-close"
+            onClick={() => setMobilePreviewOpen(false)}
+            aria-label="Close preview"
+          >
+            ✕ Close preview
+          </button>
           <div className="configurator__preview-sticky" ref={previewRef}>
             <div className="configurator__currency">
               <span className="mono-label">Currency</span>

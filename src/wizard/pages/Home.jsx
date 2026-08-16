@@ -1,12 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Features from '../components/Features.jsx'
-import AssemblingPreview from '../components/AssemblingPreview.jsx'
+import InteractivePreview from '../components/preview/InteractivePreview.jsx'
 import HomeIntro from '../components/HomeIntro.jsx'
+import TopBar from '../layout/TopBar.jsx'
 import { useOrderStore, calculateOrderTotal } from '../store/orderStore.js'
 import { useAudio } from '../AudioContext.jsx'
 import { SITE_TYPES, TEMPLATE_LIST, ONLINE_PAYMENTS_ADDON, formatPrice } from '../config/catalog.js'
+import { resolveActivePalette } from '../colorTheory.js'
 import './Home.css'
+
+// No hero-style/color-theme question exists in the homepage's 3-question
+// demo (those are Configurator-only) — a representative default per tier
+// keeps the preview visually distinct without inventing a fourth question.
+// 'parallax' is a real, existing heroStyleId (same one InteractivePreview
+// already renders for Configurator customers who pick it); 'static' is the
+// same fallback InteractivePreview itself uses when no style is chosen yet.
+const DEMO_HERO_STYLE_BY_TIER = { rich: 'parallax' }
+const DEMO_PALETTE = resolveActivePalette(null)
+const DEMO_URL = 'yourbrand.com'
 
 const MAGNET_RADIUS = 110
 const MAGNET_STRENGTH = 0.35
@@ -116,6 +128,7 @@ export default function Home() {
   return (
     <div className="home-page">
       {showIntro && <HomeIntro onDone={handleIntroDone} />}
+      <TopBar currentPath="/" />
       <section className="home" ref={heroRef}>
         <div className="home__spotlight" ref={spotlightRef} aria-hidden="true" />
 
@@ -197,7 +210,14 @@ export default function Home() {
           </div>
 
           <div className="home__preview-col">
-            <AssemblingPreview siteType={siteType} tier={tier} onlinePayments={onlinePaymentsEnabled} />
+            <InteractivePreview
+              websiteType={siteType}
+              baseTemplateId={tier}
+              heroStyleId={DEMO_HERO_STYLE_BY_TIER[tier] || 'static'}
+              effectIds={[]}
+              palette={DEMO_PALETTE}
+              url={DEMO_URL}
+            />
           </div>
         </div>
       </section>

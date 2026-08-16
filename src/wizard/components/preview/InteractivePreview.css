@@ -158,6 +158,38 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
+.mock-nav__link--cta {
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--pv-b, var(--orange));
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.mock-nav__cart {
+  position: relative;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.mock-nav__cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 13px;
+  height: 13px;
+  padding: 0 2px;
+  border-radius: 50%;
+  background: var(--pv-b, var(--orange));
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pv-page--transition {
   animation: pv-page-fade 0.4s ease;
 }
@@ -995,6 +1027,20 @@
   height: 100%;
   object-fit: cover;
 }
+.mock-hero__graphic-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .mock-hero__split .mock-hero__graphic { max-width: none; }
 
 /* Nav sits transparent over the hero at these tiers (see .mock-nav--overlay) —

@@ -665,22 +665,102 @@
   color: var(--graphite-soft);
 }
 
+/* ---- Mobile preview: fixed edge tab + slide-in drawer ---------------------
+   Below 900px the two-column grid collapses to one, so the preview can no
+   longer sit beside the selection content — it used to stay `position:
+   sticky` even in that single-column layout, which meant it visually
+   overlapped (covered) the option cards as the visitor scrolled past it.
+   Hidden by default here instead; the tab below is the only way in, and the
+   drawer covers the viewport as an overlay while open rather than sharing
+   space with the content underneath. Desktop's sticky side-by-side layout
+   (defined above, outside this media query) is untouched. */
+
+.configurator-preview-tab,
+.configurator-preview-close,
+.configurator-preview-backdrop {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .configurator {
     grid-template-columns: 1fr;
   }
-  .configurator__preview-col {
-    position: sticky;
-    top: 128px;
-    z-index: 10;
-  }
+
   .configurator-subheader {
     top: 60px;
   }
+
   .option-list,
   .bundle-grid,
   .theme-grid,
   .brand-hex-row {
     grid-template-columns: 1fr;
+  }
+
+  .configurator-preview-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 18, 38, 0.5);
+    z-index: 95;
+  }
+
+  .configurator-preview-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 90;
+    background: linear-gradient(135deg, var(--amber), var(--orange));
+    color: var(--navy);
+    border: none;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    padding: 12px 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.82rem;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+  }
+
+  .configurator__preview-col {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(92vw, 420px);
+    z-index: 100;
+    background: var(--paper);
+    box-shadow: var(--shadow-lift);
+    overflow-y: auto;
+    padding: 16px 16px 40px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .configurator__preview-col--open {
+    transform: translateX(0);
+  }
+
+  .configurator-preview-close {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: var(--paper-sunken);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--navy);
+    cursor: pointer;
   }
 }

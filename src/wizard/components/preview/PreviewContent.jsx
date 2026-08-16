@@ -2,7 +2,9 @@ import { useRef, useState } from 'react'
 import useInView from './useInView.js'
 import {
   WHAT_WE_DO,
+  WHAT_WE_DO_BY_TYPE,
   HOW_IT_WORKS,
+  HOW_IT_WORKS_BY_TYPE,
   WHY_TIERS,
   SOCIAL_PROOF,
   CONTACT_CTA,
@@ -19,11 +21,12 @@ import {
  * content once asked to.
  */
 
-export function WhatWeDo({ tier }) {
+export function WhatWeDo({ tier, siteType }) {
   const cardTier = tier !== 'plain'
+  const items = WHAT_WE_DO_BY_TYPE[siteType] || WHAT_WE_DO
   return (
     <section className={'pv-whatwedo' + (cardTier ? ' pv-whatwedo--cards' : '')}>
-      {WHAT_WE_DO.map((item) => (
+      {items.map((item) => (
         <div className={cardTier ? 'pv-whatwedo__card' : 'pv-whatwedo__plain'} key={item.title}>
           {cardTier && <span className="pv-whatwedo__icon" aria-hidden="true" />}
           <h4 className="pv-whatwedo__title">{item.title}</h4>
@@ -34,9 +37,10 @@ export function WhatWeDo({ tier }) {
   )
 }
 
-export function HowItWorks({ tier, scrollRootRef }) {
+export function HowItWorks({ tier, siteType, scrollRootRef }) {
   const [ref, inView] = useInView(scrollRootRef)
   const rich = tier === 'rich'
+  const steps = HOW_IT_WORKS_BY_TYPE[siteType] || HOW_IT_WORKS
   return (
     <section className={'pv-howitworks' + (rich ? ' pv-howitworks--rich' : '')} ref={ref}>
       <h3 className="pv-section-heading">How it works</h3>
@@ -49,7 +53,7 @@ export function HowItWorks({ tier, scrollRootRef }) {
         >
           <line x1="0" y1="1" x2="400" y2="1" stroke="var(--pv-b, var(--orange))" strokeWidth={rich ? 2 : 1.5} strokeDasharray="400" />
         </svg>
-        {HOW_IT_WORKS.map((step, i) => (
+        {steps.map((step, i) => (
           <div className="pv-howitworks__step" key={step.title} style={{ transitionDelay: `${i * 120}ms` }}>
             <span className="pv-howitworks__num">{i + 1}</span>
             <h5 className="pv-howitworks__step-title">{step.title}</h5>

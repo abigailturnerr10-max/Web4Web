@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ESSENTIAL_PREVIEW_TIERS } from '../../config/catalog.js'
-import { HERO_COPY } from './previewCopy.js'
+import { HERO_COPY, HERO_COPY_BY_TYPE } from './previewCopy.js'
 import { WhatWeDo, HowItWorks, WhyTiers, SocialProof, ContactCTA, FooterReal, SeeItInAction } from './PreviewContent.jsx'
 import {
   ScrambleHeading,
@@ -147,7 +147,16 @@ export default function InteractivePreview({ websiteType, baseTemplateId, heroSt
             {navOverlay && extraNavLink && (
               <span className="mock-nav__link mock-nav__link--underline">{extraNavLink}</span>
             )}
-            <span className={'mock-nav__link' + (navOverlay ? ' mock-nav__link--underline' : '')}>Contact</span>
+            <span
+              className={'mock-nav__link' + (navOverlay ? ' mock-nav__link--underline' : '') + (websiteType === 'business' ? ' mock-nav__link--cta' : '')}
+            >
+              {websiteType === 'business' ? 'Book Now' : 'Contact'}
+            </span>
+            {websiteType === 'store' && (
+              <span className="mock-nav__cart" aria-hidden="true">
+                🛒<span className="mock-nav__cart-count">2</span>
+              </span>
+            )}
           </div>
         </div>
 
@@ -181,7 +190,7 @@ function HomeContent({ tier, websiteType, heroStyleId, isMotionHero, hasEffect, 
 
   return (
     <>
-      <Hero tier={tier} heroStyleId={heroStyleId} isMotionHero={isMotionHero} hasEffect={hasEffect} />
+      <Hero tier={tier} websiteType={websiteType} heroStyleId={heroStyleId} isMotionHero={isMotionHero} hasEffect={hasEffect} />
 
       {hasEffect('crack-open-reveal') && <CrackOpenReveal scrollRootRef={scrollRootRef} />}
       {hasEffect('hanging-sign-reveal') && <HangingSignDemo scrollRootRef={scrollRootRef} />}
@@ -262,11 +271,11 @@ function HomeContent({ tier, websiteType, heroStyleId, isMotionHero, hasEffect, 
       {hasEffect('confetti-cannon') && <ConfettiCannon />}
       {hasEffect('shatter-split') && <ShatterSplitDemo />}
 
-      <WhatWeDo tier={tier} />
+      <WhatWeDo tier={tier} siteType={websiteType} />
 
       {/* How It Works, Why Tiers, and Social proof are a real structural omission at
           Plain — matching its "up to 3 pages" scope, not just a style downgrade. */}
-      {standardPlus && <HowItWorks tier={tier} scrollRootRef={scrollRootRef} />}
+      {standardPlus && <HowItWorks tier={tier} siteType={websiteType} scrollRootRef={scrollRootRef} />}
       {standardPlus && <WhyTiers tier={tier} />}
       {standardPlus && <SocialProof />}
       {tier === 'rich' && <SeeItInAction siteType={websiteType} scrollRootRef={scrollRootRef} />}
@@ -287,7 +296,12 @@ function AboutContent() {
   )
 }
 
-function HeroGraphic({ isVideo }) {
+// A light visual tell per siteType on the hero graphic itself, not just the
+// copy beside it — a generic representative icon per genre, not any real
+// brand's actual product photography/layout.
+const HERO_GRAPHIC_BADGE = { store: '🏷️ ₦14,500', portfolio: '🖼️ Case study', business: '📋 Free consult' }
+
+function HeroGraphic({ isVideo, websiteType }) {
   const [videoAvailable, setVideoAvailable] = useState(false)
 
   useEffect(() => {
@@ -300,6 +314,8 @@ function HeroGraphic({ isVideo }) {
       cancelled = true
     }
   }, [isVideo])
+
+  const badge = HERO_GRAPHIC_BADGE[websiteType]
 
   return (
     <div className="mock-hero__graphic" aria-hidden="true">
@@ -322,46 +338,48 @@ function HeroGraphic({ isVideo }) {
             }}
           />
         )}
+        {badge && <span className="mock-hero__graphic-badge">{badge}</span>}
       </div>
     </div>
   )
 }
 
-function HeroCopy({ hasEffect, typing }) {
+function HeroCopy({ hasEffect, typing, websiteType }) {
+  const copy = HERO_COPY_BY_TYPE[websiteType] || HERO_COPY
   if (typing) {
     return (
       <div className="mock-hero__copy">
         <div className="mock-hero__typing">
-          <span className="mock-hero__typing-text">{HERO_COPY.headline}</span>
+          <span className="mock-hero__typing-text">{copy.headline}</span>
           <span className="mock-hero__typing-caret" />
         </div>
-        <p className="mock-hero__subheadline">{HERO_COPY.subheadline}</p>
+        <p className="mock-hero__subheadline">{copy.subheadline}</p>
         <span className={'mock-hero__cta' + (hasEffect('micro-interactions') ? ' mock-hero__cta--pulse' : '')}>
-          {HERO_COPY.cta}
+          {copy.cta}
         </span>
       </div>
     )
   }
   return (
     <div className={'mock-hero__copy' + (hasEffect('glassmorphism') ? ' mock-hero__copy--glass' : '')}>
-      <h1 className="mock-hero__headline">{HERO_COPY.headline}</h1>
-      <p className="mock-hero__subheadline">{HERO_COPY.subheadline}</p>
+      <h1 className="mock-hero__headline">{copy.headline}</h1>
+      <p className="mock-hero__subheadline">{copy.subheadline}</p>
       <span className={'mock-hero__cta' + (hasEffect('micro-interactions') ? ' mock-hero__cta--pulse' : '')}>
-        {HERO_COPY.cta}
+        {copy.cta}
       </span>
     </div>
   )
 }
 
-function Hero({ tier, heroStyleId, isMotionHero, hasEffect }) {
+function Hero({ tier, websiteType, heroStyleId, isMotionHero, hasEffect }) {
   const isVideo = heroStyleId === 'video'
   return (
     <div className={`mock-hero mock-hero--${heroStyleId} mock-hero--tier-${tier}`}>
-      {heroStyleId === 'static' && <HeroGraphic isVideo={isMotionHero} />}
+      {heroStyleId === 'static' && <HeroGraphic isVideo={isMotionHero} websiteType={websiteType} />}
 
-      {isVideo && <HeroGraphic isVideo />}
+      {isVideo && <HeroGraphic isVideo websiteType={websiteType} />}
 
-      {heroStyleId === 'full-bleed' && <HeroGraphic isVideo={isMotionHero} />}
+      {heroStyleId === 'full-bleed' && <HeroGraphic isVideo={isMotionHero} websiteType={websiteType} />}
 
       {heroStyleId === 'line-draw' && (
         <svg className="mock-hero__line" viewBox="0 0 200 60" fill="none">
@@ -388,11 +406,11 @@ function Hero({ tier, heroStyleId, isMotionHero, hasEffect }) {
 
       {heroStyleId === 'split-screen' ? (
         <div className="mock-hero__split">
-          <HeroCopy hasEffect={hasEffect} />
-          <HeroGraphic isVideo={isMotionHero} />
+          <HeroCopy hasEffect={hasEffect} websiteType={websiteType} />
+          <HeroGraphic isVideo={isMotionHero} websiteType={websiteType} />
         </div>
       ) : (
-        <HeroCopy hasEffect={hasEffect} typing={heroStyleId === 'typing-headline'} />
+        <HeroCopy hasEffect={hasEffect} websiteType={websiteType} typing={heroStyleId === 'typing-headline'} />
       )}
     </div>
   )

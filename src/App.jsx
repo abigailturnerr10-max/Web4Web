@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from './ScrollToTop.jsx'
 import { AudioProvider } from './wizard/AudioContext.jsx'
 import MuteToggle from './wizard/components/MuteToggle.jsx'
 import InstallPrompt from './wizard/components/InstallPrompt.jsx'
@@ -49,6 +50,7 @@ function WizardLayout() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AudioProvider>
         <Routes>
           <Route path="/submit-content" element={<SubmitContent />} />
