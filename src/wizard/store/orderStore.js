@@ -203,9 +203,8 @@ export const useOrderStore = create((set, get) => ({
     if (!supabaseReady) return { id: null, reason: 'not_configured' }
     const { order, currency } = get()
     const total = calculateOrderTotal(order)
-    const { data, error } = await supabase
-      .from('orders')
-      .insert({
+    const { data, error } = await supabase.functions.invoke('create-order', {
+      body: {
         site_type: order.siteType,
         template: order.template,
         online_payments: order.onlinePayments,
@@ -219,19 +218,17 @@ export const useOrderStore = create((set, get) => ({
         delivery: order.delivery,
         contact: order.contact,
         payment_acceptance: order.paymentAcceptance,
-        status: 'pending_payment',
         total_amount: total,
         currency: currency || 'NGN',
-      })
-      .select()
-      .single()
+      },
+    })
 
-    if (error || !data) {
+    if (error || !data?.success) {
       console.error('[Web4Web] Failed to save order to Supabase before checkout — payment will be blocked until this succeeds.', error)
       return { id: null, reason: 'save_failed' }
     }
-    set({ supabaseOrderId: data.id })
-    return { id: data.id, reason: null }
+    set({ supabaseOrderId: data.order.id })
+    return { id: data.order.id, reason: null }
   },
 
   resetOrder: () => {
