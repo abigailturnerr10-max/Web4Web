@@ -12,7 +12,9 @@ const AUTOSAVE_DEBOUNCE_MS = 900
  *
  * All writes go through the save-order-content Edge Function, never a direct
  * client `.update()`/`.insert()` — order_content has no anon write policy at
- * all (see migration 002's notes), so this is the only path in.
+ * all (see migration 002's notes), so this is the only path in. Reads go
+ * through get-order rather than a direct `.select()` for the same reason
+ * writes do — neither table grants anon SELECT anymore (see migration 012).
  */
 export default function useOrderContentAutosave(orderId) {
   const [order, setOrder] = useState(null)
@@ -34,16 +36,18 @@ export default function useOrderContentAutosave(orderId) {
     let cancelled = false
 
     async function load() {
-      const { data: orderRow, error: orderError } = await supabase.from('orders').select('*').eq('id', orderId).single()
+      const { data, error: invokeError } = await supabase.functions.invoke('get-order', {
+        body: { orderId, includeContent: true },
+      })
       if (cancelled) return
-      if (orderError || !orderRow) {
+      if (invokeError || !data?.success) {
         setLoadError('order_not_found')
         setLoading(false)
         return
       }
-      setOrder(toClientShapedOrder(orderRow))
+      setOrder(toClientShapedOrder(data.order))
 
-      const { data: contentRow } = await supabase.from('order_content').select('*').eq('order_id', orderId).maybeSingle()
+      const contentRow = data.content
       if (cancelled) return
 
       if (contentRow) {

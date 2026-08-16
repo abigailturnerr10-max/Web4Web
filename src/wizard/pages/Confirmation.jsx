@@ -70,19 +70,16 @@ export default function Confirmation() {
     }
     let cancelled = false
     setRemoteStatus('loading')
-    supabase
-      .from('orders')
-      .select('*')
-      .eq('id', supabaseOrderId)
-      .single()
+    supabase.functions
+      .invoke('get-order', { body: { orderId: supabaseOrderId } })
       .then(({ data, error }) => {
         if (cancelled) return
-        if (error || !data) {
+        if (error || !data?.success) {
           setRemoteStatus('not-found')
           return
         }
-        setRemoteOrder(data)
-        setRemoteStatus(data.status === 'paid' || data.status === 'confirmed' ? 'paid' : 'pending')
+        setRemoteOrder(data.order)
+        setRemoteStatus(data.order.status === 'paid' || data.order.status === 'confirmed' ? 'paid' : 'pending')
       })
     return () => {
       cancelled = true
